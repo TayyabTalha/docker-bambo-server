@@ -8,9 +8,20 @@ This is bambo server which can run docker local agent default and you can use it
 
 # Quick Start
 
-``
+## Build Images
+```
 docker build .
+```
+## Tag Image
+```
 docker tag <imageId> <repo>
+```
+## Push Docker Image
+```
 docker push <repo>
+```
+## Run Bambo server
+```
+
 docker-compose up -d
-``
+```
