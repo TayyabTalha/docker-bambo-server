@@ -1,0 +1,47 @@
+version: '3'
+services:
+  bamboo-server:
+    image: fullduplexuk/bamboo-server
+    environment:
+      - HOME=/root/
+    volumes:
+      - bambooVolume:/var/atlassian/application-data/bamboo
+      - /usr/bin/docker:/usr/bin/docker
+      - /usr/bin/docker-compose:/usr/bin/docker-compose
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/aufs:/var/lib/docker/aufs
+      - /var/lib/docker:/var/lib/docker
+      - /usr/lib64/libsystemd-journal.so.0:/usr/lib/x86_64-linux-gnu/libsystemd-journal.so.0
+      - /usr/lib64/libsystemd-id128.so.0:/usr/lib/x86_64-linux-gnu/libsystemd-id128.so.0
+      - /usr/lib64/libdevmapper.so.1.02:/usr/lib/x86_64-linux-gnu/libdevmapper.so.1.02
+      - /usr/lib64/libgcrypt.so.11:/usr/lib/x86_64-linux-gnu/libgcrypt.so.11
+      - /usr/lib64/libdw.so.1:/usr/lib/x86_64-linux-gnu/libdw.so.1
+      - /usr/lib64/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7
+    ports:
+      - "8085:8085/tcp"
+      #- ":5280/tcp"
+    #depends_on:
+    #  - mysqldb
+    hostname: bamboo-server
+    networks:
+      - bamboo-network
+ 
+   #bamboo-agent:
+   # image: 
+    #restart: always
+   # environment:
+   #   - MYSQL_ROOT_PASSWORD=${MARIADB_PASSWORD}
+   # volumes:
+   #   - ejabberdb-vol:/var/lib/mysql
+   # ports:
+   #   - "${MARIADB_PORT}:3306"
+   # hostname: mysqldb
+   # networks:
+   #   - ejabberd-network
+networks:
+  bamboo-network:
+    driver: bridge
+volumes:
+   bambooVolume:
+    external: true
+
